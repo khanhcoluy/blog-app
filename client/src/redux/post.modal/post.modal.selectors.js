@@ -1,0 +1,1 @@
+export const isModalShow$ = state => state.postModal.isShow;
