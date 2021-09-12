@@ -25,6 +25,19 @@ const postReducer = ( state = INITIAL_STATE, action ) => {
         ...state,
         isLoading: false,
         error: action.payload
+      };
+    // case PostActionTypes.CREATE_POST_START:
+    //   return state;
+    case PostActionTypes.CREATE_POST_SUCCESS:
+      return {
+        ...state,
+        posts: [ ...state.posts, action.payload ],
+        error: null
+      };
+    case PostActionTypes.CREATE_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload
       }
     default:
       return state;

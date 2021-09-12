@@ -19,8 +19,8 @@ const PostList = () => {
     <Grid
       container
       spacing={4}
-      alignItems="flex-start"
-      justifyContent="space-between"
+      alignItems="stretch"
+      justifyContent="flex-start"
     >
       {posts.map((post) => (
         <Grid key={post._id} item xs={12} sm={6} md={4}>

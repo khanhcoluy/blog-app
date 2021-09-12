@@ -14,3 +14,17 @@ export const fetchPostsFailure = (error) => ({
   payload: error
 });
 
+export const createPostStart = (post) => ({
+  type: PostActionTypes.CREATE_POST_START,
+  payload: post
+});
+
+export const createPostSuccess = (post) => ({
+  type: PostActionTypes.CREATE_POST_SUCCESS,
+  payload: post
+});
+
+export const createPostFailure = (error) => ({
+  type: PostActionTypes.CREATE_POST_FAILURE,
+  payload: error
+});
