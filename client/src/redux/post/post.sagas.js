@@ -5,10 +5,12 @@ import {
   fetchPostsSucess,
   fetchPostsFailure,
   createPostSuccess,
-  createPostFailure
+  createPostFailure,
+  updatePostSuccess,
+  updatePostFailure
 } from './post.actions';
 
-import { fetchPosts, createNewPost } from '../../api/api';
+import { fetchPosts, createNewPost, updatePost } from '../../api/api';
 
 export function* fetchAllPosts() {
   try {
@@ -28,6 +30,19 @@ export function* onCreateNewPost(action) {
   }
 }
 
+export function* updatePostRequest(action) {
+  try {
+    const post = yield call(updatePost, action.payload._id, action.payload);
+    yield put(updatePostSuccess(post.data));
+  } catch (err) {
+    yield put(updatePostFailure(err));
+  }
+}
+
+export function* onUpdatePostStart() {
+  yield takeLatest(PostActionTypes.UPDATE_POST_START, updatePostRequest);
+}
+
 export function* onCreatePostStart() {
   yield takeLatest(PostActionTypes.CREATE_POST_START, onCreateNewPost);
 }
@@ -37,5 +52,5 @@ export function* onFetchPostsStart() {
 }
 
 export function* postSagas() {
-  yield all([call(onFetchPostsStart), call(onCreatePostStart)]);
+  yield all([call(onFetchPostsStart), call(onCreatePostStart), call(onUpdatePostStart)]);
 }

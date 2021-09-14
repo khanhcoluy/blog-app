@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   error: null
 };
 
-const postReducer = ( state = INITIAL_STATE, action ) => {
+const postReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case PostActionTypes.FETCH_POSTS_START:
       return {
@@ -26,15 +26,26 @@ const postReducer = ( state = INITIAL_STATE, action ) => {
         isLoading: false,
         error: action.payload
       };
-    // case PostActionTypes.CREATE_POST_START:
-    //   return state;
     case PostActionTypes.CREATE_POST_SUCCESS:
       return {
         ...state,
-        posts: [ ...state.posts, action.payload ],
+        posts: [...state.posts, action.payload],
         error: null
       };
     case PostActionTypes.CREATE_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      };
+    case PostActionTypes.UPDATE_POST_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        )
+      };
+    case PostActionTypes.UPDATE_POST_FAILURE:
       return {
         ...state,
         error: action.payload

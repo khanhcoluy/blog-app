@@ -1,20 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import FileBase64 from 'react-file-base64';
 
-import { isModalShow$ } from '../../redux/post.modal/post.modal.selectors';
+import {
+  currentId$,
+  isModalShow$,
+  postDataSelected$
+} from '../../redux/post.modal/post.modal.selectors';
 import { hidePostModal } from '../../redux/post.modal/post.modal.actions';
 
 import { Button, Modal, TextareaAutosize, TextField } from '@material-ui/core';
 import useStyles from './post.modal.styles';
-import { createPostStart } from '../../redux/post/post.actions';
+import { createPostStart, updatePostStart } from '../../redux/post/post.actions';
 
 const PostModal = () => {
   const isModalShow = useSelector(isModalShow$);
-  const classes = useStyles();
-  
+  const currentId = useSelector(currentId$);
+  const postDataSelected = useSelector(postDataSelected$);
   const dispatch = useDispatch();
+
+  const classes = useStyles();
+
+  const [postData, setPostData] = useState({
+    creator: '',
+    title: '',
+    content: '',
+    detail: '',
+    attachment: ''
+  });
 
   const hideModal = () => {
     dispatch(hidePostModal());
@@ -27,16 +41,14 @@ const PostModal = () => {
     });
   };
 
-  const [postData, setPostData] = useState({
-    creator: '',
-    title: '',
-    content: '',
-    detail: '',
-    attachment: ''
-  });
+  useEffect(() => {
+    if (postDataSelected) {
+      setPostData(postDataSelected);
+    }
+  }, [postDataSelected]);
 
   const { creator, title, content, detail, attachment } = postData;
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPostData({ ...postData, [name]: value });
@@ -47,13 +59,20 @@ const PostModal = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(createPostStart(postData));
+    if (currentId) {
+      dispatch(updatePostStart(postData));
+    } else {
+      dispatch(createPostStart(postData));
+    }
+
     hideModal();
   };
 
   const body = (
     <div className={classes.paper} id="modal-title">
-      <h2 style={{ textAlign: 'center' }}>Create New Post</h2>
+      <h2 style={{ textAlign: 'center' }}>
+        {currentId ? 'Update Post' : 'Create New Post'}
+      </h2>
       <form noValidate autoComplete="off" className={classes.form}>
         <TextField
           className={classes.creator}
@@ -73,8 +92,8 @@ const PostModal = () => {
         />
         <TextareaAutosize
           className={classes.textarea}
-          rowsMin={3}
-          rowsMax={5}
+          minRows={2}
+          maxRows={4}
           placeholder="Content..."
           name="content"
           onChange={handleChange}
@@ -82,8 +101,8 @@ const PostModal = () => {
         />
         <TextareaAutosize
           className={classes.textarea}
-          rowsMin={10}
-          rowsMax={15}
+          minRows={7}
+          maxRows={10}
           placeholder="Detail..."
           name="detail"
           onChange={handleChange}
@@ -104,7 +123,7 @@ const PostModal = () => {
             fullWidth
             onClick={handleSubmit}
           >
-            Create
+            {currentId ? 'Update' : 'Create'}
           </Button>
         </div>
       </form>

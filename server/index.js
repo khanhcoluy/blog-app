@@ -9,7 +9,7 @@ const PORT = process.env.port || 5000;
 const URI =
   'mongodb+srv://khanhcoluy:khanhcoluy123@cluster0.jzwqo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
-app.use(express.json({ limit: '30mb' }));
+app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 

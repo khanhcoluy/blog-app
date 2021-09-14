@@ -24,12 +24,11 @@ export const createPost = async (req, res) => {
 export const updatePost = async (req, res) => {
   try {
     const updatePost = req.body;
-    const post = await PostModel.findOneAndUpdate(
-      { _id: updatePost._id },
+    const post = await PostModel.findByIdAndUpdate(
+      { _id: req.params.id },
       updatePost,
       { new: true }
-    );
-    await post.save();
+    ); //req.params = {id: 'abcxyz'};
 
     res.status(200).json(post);
   } catch (err) {

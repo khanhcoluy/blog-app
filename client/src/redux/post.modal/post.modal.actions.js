@@ -7,3 +7,8 @@ export const showPostModal = () => ({
 export const hidePostModal = () => ({
   type: PostModalActionType.HIDE_POST_MODAL
 });
+
+export const editPost = (post) => ({
+  type: PostModalActionType.EDIT_POST,
+  payload: post
+})

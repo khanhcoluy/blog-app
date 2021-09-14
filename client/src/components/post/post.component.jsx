@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import Card from '@material-ui/core/Card';
@@ -16,22 +17,30 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import { editPost } from '../../redux/post.modal/post.modal.actions';
+
 import useStyles from './post.styles';
 
 const Post = ({ post }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  
+  const dispatch = useDispatch();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const editingPost = () => {
+    dispatch(editPost(post));
+  }
 
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={<Avatar className={classes.avatar}>K</Avatar>}
         action={
-          <IconButton>
+          <IconButton onClick={editingPost}>
             <MoreVertIcon />
           </IconButton>
         }
