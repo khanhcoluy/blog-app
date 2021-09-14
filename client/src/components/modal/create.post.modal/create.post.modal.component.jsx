@@ -126,6 +126,16 @@ const CreatePostModal = () => {
           >
             {currentId ? 'Update' : 'Create'}
           </Button>
+          <Button
+            variant="contained"
+            color="default"
+            component="span"
+            fullWidth
+            onClick={hideModal}
+            style={{ marginTop: '10px' }}
+          >
+            Cancel
+          </Button>
         </div>
       </form>
     </div>

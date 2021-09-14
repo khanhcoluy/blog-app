@@ -17,7 +17,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { editPost } from '../../redux/post.modal/post.modal.actions';
+import { editPost, showDeleteModal } from '../../redux/post.modal/post.modal.actions';
 
 import useStyles from './post.styles';
 
@@ -33,6 +33,10 @@ const Post = ({ post }) => {
 
   const editingPost = () => {
     dispatch(editPost(post));
+  }
+
+  const openDeleteModal = () => {
+    dispatch(showDeleteModal(post._id));
   }
 
   return (
@@ -63,7 +67,7 @@ const Post = ({ post }) => {
             {`${post.likeCount} likes`}
           </Typography>
         </IconButton>
-        <IconButton aria-label="detele post">
+        <IconButton aria-label="detele post" onClick={openDeleteModal}>
           <DeleteIcon />
         </IconButton>
         <IconButton

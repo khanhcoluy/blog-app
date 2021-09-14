@@ -7,7 +7,7 @@ const Header = () => {
 
   return (
     <Typography variant="h4" align="center" className={classes.container}>
-      BLOG
+      MINI BLOG
     </Typography>
   );
 };

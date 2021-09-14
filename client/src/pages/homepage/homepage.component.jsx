@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+
 import { Container, Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import red from '@material-ui/core/colors/red';
@@ -9,6 +10,7 @@ import useStyles from './homepage.styles';
 import Header from '../../components/header/header.component';
 import PostList from '../../components/postlist/postlist.component';
 import CreatePostModal from '../../components/modal/create.post.modal/create.post.modal.component';
+import DeletePostModal from '../../components/modal/delete.post.modal/delete.post.modal.component';
 
 import {
   showPostModal
@@ -37,6 +39,7 @@ const HomePage = () => {
       <Header />
       <PostList />
       <CreatePostModal />
+      <DeletePostModal />
       <Fab
         className={classes.fab}
         onClick={showModal}

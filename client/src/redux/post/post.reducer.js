@@ -49,7 +49,18 @@ const postReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: action.payload
-      }
+      };
+    case PostActionTypes.DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        posts: state.posts.filter((post) => post._id !== action.payload)
+      };
+    case PostActionTypes.DELETE_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      };
     default:
       return state;
   }
