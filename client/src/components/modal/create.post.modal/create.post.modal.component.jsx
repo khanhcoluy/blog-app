@@ -7,14 +7,15 @@ import {
   currentId$,
   isModalShow$,
   postDataSelected$
-} from '../../redux/post.modal/post.modal.selectors';
-import { hidePostModal } from '../../redux/post.modal/post.modal.actions';
+} from '../../../redux/post.modal/post.modal.selectors';
+
+import { hidePostModal } from '../../../redux/post.modal/post.modal.actions';
 
 import { Button, Modal, TextareaAutosize, TextField } from '@material-ui/core';
-import useStyles from './post.modal.styles';
-import { createPostStart, updatePostStart } from '../../redux/post/post.actions';
+import useStyles from './create.post.modal.styles';
+import { createPostStart, updatePostStart } from '../../../redux/post/post.actions';
 
-const PostModal = () => {
+const CreatePostModal = () => {
   const isModalShow = useSelector(isModalShow$);
   const currentId = useSelector(currentId$);
   const postDataSelected = useSelector(postDataSelected$);
@@ -137,4 +138,4 @@ const PostModal = () => {
   );
 };
 
-export default PostModal;
+export default CreatePostModal;

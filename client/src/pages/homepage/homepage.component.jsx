@@ -8,7 +8,8 @@ import green from '@material-ui/core/colors/green';
 import useStyles from './homepage.styles';
 import Header from '../../components/header/header.component';
 import PostList from '../../components/postlist/postlist.component';
-import PostModal from '../../components/post.modal/post.modal.component';
+import CreatePostModal from '../../components/modal/create.post.modal/create.post.modal.component';
+
 import {
   showPostModal
 } from '../../redux/post.modal/post.modal.actions';
@@ -35,7 +36,7 @@ const HomePage = () => {
     <Container maxWidth="lg">
       <Header />
       <PostList />
-      <PostModal />
+      <CreatePostModal />
       <Fab
         className={classes.fab}
         onClick={showModal}
