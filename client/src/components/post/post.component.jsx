@@ -20,6 +20,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { editPost, showDeleteModal } from '../../redux/post.modal/post.modal.actions';
 
 import useStyles from './post.styles';
+import { likePostStart } from '../../redux/post/post.actions';
 
 const Post = ({ post }) => {
   const classes = useStyles();
@@ -37,6 +38,10 @@ const Post = ({ post }) => {
 
   const openDeleteModal = () => {
     dispatch(showDeleteModal(post._id));
+  }
+
+  const onLikeButtonClick = () => {
+    dispatch(likePostStart(post._id));
   }
 
   return (
@@ -61,10 +66,10 @@ const Post = ({ post }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={onLikeButtonClick}>
           <FavoriteIcon />
           <Typography component="span" colort="textSecondary">
-            {`${post.likeCount} likes`}
+            {`${post.likeCount}`}
           </Typography>
         </IconButton>
         <IconButton aria-label="detele post" onClick={openDeleteModal}>

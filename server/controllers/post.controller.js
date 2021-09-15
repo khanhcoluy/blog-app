@@ -39,9 +39,26 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
   try {
     await PostModel.findByIdAndRemove(req.params.id);
-    
+
     res.status(200).json({ message: 'post deleted successfully ' });
   } catch (err) {
     res.status(500).json({ error: err });
+  }
+};
+
+export const likePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await PostModel.findById(id);
+
+    const updatedPost = await PostModel.findByIdAndUpdate(
+      id,
+      { likeCount: post.likeCount + 1 },
+      { new: true }
+    );
+
+    res.status(200).json(updatedPost);
+  } catch (err) {
+    res.status(500).json({error: err});
   }
 };

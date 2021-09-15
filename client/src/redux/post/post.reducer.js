@@ -33,11 +33,15 @@ const postReducer = (state = INITIAL_STATE, action) => {
         error: null
       };
     case PostActionTypes.CREATE_POST_FAILURE:
+    case PostActionTypes.UPDATE_POST_FAILURE:
+    case PostActionTypes.DELETE_POST_FAILURE:
+    case PostActionTypes.LIKE_POST_FAILURE:
       return {
         ...state,
         error: action.payload
       };
     case PostActionTypes.UPDATE_POST_SUCCESS:
+    case PostActionTypes.LIKE_POST_SUCCESS:
       return {
         ...state,
         error: null,
@@ -45,21 +49,11 @@ const postReducer = (state = INITIAL_STATE, action) => {
           post._id === action.payload._id ? action.payload : post
         )
       };
-    case PostActionTypes.UPDATE_POST_FAILURE:
-      return {
-        ...state,
-        error: action.payload
-      };
     case PostActionTypes.DELETE_POST_SUCCESS:
       return {
         ...state,
         error: null,
         posts: state.posts.filter((post) => post._id !== action.payload)
-      };
-    case PostActionTypes.DELETE_POST_FAILURE:
-      return {
-        ...state,
-        error: action.payload
       };
     default:
       return state;

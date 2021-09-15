@@ -58,3 +58,18 @@ export const deletePostFailure = (error) => ({
   type: PostActionTypes.DELETE_POST_FAILURE,
   payload: error
 })
+
+export const likePostStart = (id) => ({
+  type: PostActionTypes.LIKE_POST_START,
+  payload: id
+})
+
+export const likePostSuccess = (post) => ({
+  type: PostActionTypes.LIKE_POST_SUCCESS,
+  payload: post
+})
+
+export const likePostFailure = (error) => ({
+  type: PostActionTypes.LIKE_POST_FAILURE,
+  payload: error
+})

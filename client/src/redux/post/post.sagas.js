@@ -1,4 +1,4 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest, takeEvery } from 'redux-saga/effects';
 
 import PostActionTypes from './post.types';
 import {
@@ -9,14 +9,17 @@ import {
   updatePostSuccess,
   updatePostFailure,
   deletePostSuccess,
-  deletePostFailure
+  deletePostFailure,
+  likePostFailure,
+  likePostSuccess
 } from './post.actions';
 
 import {
   fetchPosts,
   createNewPost,
   updatePost,
-  deletePost
+  deletePost,
+  likePost
 } from '../../api/api';
 
 export function* fetchAllPosts() {
@@ -55,6 +58,19 @@ export function* deletePostRequest(action) {
   }
 }
 
+export function* likePostRequest(action) {
+  try {
+    const post = yield call(likePost, action.payload);
+    yield put(likePostSuccess(post.data));
+  } catch (err) {
+    yield put(likePostFailure(err));
+  }
+}
+
+export function* onlikePostStart() {
+  yield takeEvery(PostActionTypes.LIKE_POST_START, likePostRequest);
+}
+
 export function* onDeletePostStart() {
   yield takeLatest(PostActionTypes.DELETE_POST_START, deletePostRequest);
 }
@@ -76,6 +92,7 @@ export function* postSagas() {
     call(onFetchPostsStart),
     call(onCreatePostStart),
     call(onUpdatePostStart),
-    call(onDeletePostStart)
+    call(onDeletePostStart),
+    call(onlikePostStart)
   ]);
 }
