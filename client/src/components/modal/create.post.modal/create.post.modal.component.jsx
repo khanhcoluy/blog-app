@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import FileBase64 from 'react-file-base64';
+import { createTheme } from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
+import { green } from '@material-ui/core/colors';
 
 import {
   currentId$,
@@ -13,9 +16,23 @@ import { hidePostModal } from '../../../redux/post.modal/post.modal.actions';
 
 import { Button, Modal, TextareaAutosize, TextField } from '@material-ui/core';
 import useStyles from './create.post.modal.styles';
-import { createPostStart, updatePostStart } from '../../../redux/post/post.actions';
+import {
+  createPostStart,
+  updatePostStart
+} from '../../../redux/post/post.actions';
 
 const CreatePostModal = () => {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: red[500]
+      },
+      secondary: {
+        main: green[500]
+      }
+    }
+  });
+
   const isModalShow = useSelector(isModalShow$);
   const currentId = useSelector(currentId$);
   const postDataSelected = useSelector(postDataSelected$);
@@ -119,7 +136,7 @@ const CreatePostModal = () => {
         <div className={classes.footer}>
           <Button
             variant="contained"
-            color="secondary"
+            style={{ background: theme.palette.primary.main, color: 'white' }}
             component="span"
             fullWidth
             onClick={handleSubmit}
