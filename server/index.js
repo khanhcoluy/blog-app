@@ -9,7 +9,7 @@ dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
-const URI = process.env.DATABASE_URL;
+const URI = process.env.DATABASE_URL_US;
 
 app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
